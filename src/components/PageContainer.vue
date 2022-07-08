@@ -3,7 +3,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 d-flex justify-content-between flex-wrap">
-                    <div v-for="item, index in dataList" :key="index">
+                    <div v-if="isLoadin">
+                        <div class="ripple-loader">
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <h2>LOADING CONTENT</h2>
+                    </div>
+                    <div v-else v-for="item, index in dataList" :key="index">
                         <SingleCard :info="dataList" :item="item" />
                     </div>
                 </div>
@@ -23,6 +30,7 @@ export default {
         return {
             url: "https://rickandmortyapi.com/api/character",
             dataList: [],
+            isLoadin: true,
         };
     },
     created() {
@@ -32,6 +40,9 @@ export default {
         getData() {
             axios.get(this.url).then((result) => {
                 this.dataList = result.data.results;
+                setTimeout(() => {
+                    this.isLoadin = false;
+                }, 1000);
             });
         }
     },
@@ -43,6 +54,10 @@ export default {
 @import '../assets/common.scss';
 .back {
     background-color: $main-color;
+    color: white;
+}
+h2 {
+    font-size: 80px;
     color: white;
 }
 </style>
