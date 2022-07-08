@@ -1,8 +1,11 @@
 <template>
     <div class="ms_card">
-        <img :src="item.image" :alt="item.name">
-        <h5>{{item.name}}</h5>
-        <p>{{item.species}}</p>
+        <img :src="item.poster" :alt="item.title">
+        <div class="text-center">
+            <h5>{{item.title}}</h5>
+            <p>{{item.author}}</p>
+            <p>{{item.year}}</p>
+        </div>
     </div>
 </template>
 
@@ -20,7 +23,7 @@ export default {
 @import '../assets/common.scss';
 .ms_card {
     width: 150px;
-    height: 278px;
+    height: 300px;
     padding: 15px;
     background-color: $primary;
     border: none;
@@ -32,6 +35,7 @@ export default {
     }
     p {
         color: grey;
+        display: block;
     }
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="back">
         <div class="container">
             <div class="row">
-                <div class="col-12 d-flex justify-content-between flex-wrap">
+                <div class="col-12 d-flex justify-content-evenly flex-wrap">
                     <div v-if="isLoadin">
                         <div class="ripple-loader">
                             <div></div>
@@ -28,7 +28,7 @@ export default {
     name: "PageContainer",
     data() {
         return {
-            url: "https://rickandmortyapi.com/api/character",
+            url: "https://flynn.boolean.careers/exercises/api/array/music",
             dataList: [],
             isLoadin: true,
         };
@@ -39,7 +39,7 @@ export default {
     methods: {
         getData() {
             axios.get(this.url).then((result) => {
-                this.dataList = result.data.results;
+                this.dataList = result.data.response;
                 setTimeout(() => {
                     this.isLoadin = false;
                 }, 1000);
