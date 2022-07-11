@@ -10,8 +10,19 @@
                         </div>
                         <h2>LOADING CONTENT</h2>
                     </div>
-                    <div v-else v-for="item, index in dataList" :key="index">
-                        <SingleCard :info="dataList" :item="item" />
+                    <div v-else>
+                        <div>
+                            <SearchBar @select="selectCategory" />
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="d-flex flex-wrap">
+                                    <div v-for="item, index in filteredDataList" :key="index">
+                                        <SingleCard :info="dataList" :item="item" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -22,6 +33,7 @@
 <script>
 import axios from 'axios';
 import SingleCard from './SingleCard.vue';
+import SearchBar from './SearchBar.vue';
 
 
 export default {
@@ -31,6 +43,7 @@ export default {
             url: "https://flynn.boolean.careers/exercises/api/array/music",
             dataList: [],
             isLoadin: true,
+            filteredDataList: [],
         };
     },
     created() {
@@ -42,11 +55,27 @@ export default {
                 this.dataList = result.data.response;
                 setTimeout(() => {
                     this.isLoadin = false;
+                    this.filteredDataList = this.dataList
                 }, 1000);
             });
+        },
+        selectCategory(select) {
+        this.filteredDataList = [];
+        for(let i = 0; i < this.dataList.length; i++) {
+            if (this.dataList[i].genre.toLowerCase() == select) {
+                this.filteredDataList.push(this.dataList[i]);
+            } 
         }
+        this.selectAll(select)
+        },
+        selectAll(select) {
+            if (select == 'all') {
+                this.filteredDataList = this.dataList;
+            }
+        }
+    
     },
-    components: { SingleCard }
+    components: { SingleCard, SearchBar }
 }
 </script>
 

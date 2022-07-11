@@ -18,8 +18,7 @@ export default {
   name: 'App',
   components: {
     PageHeader,
-    PageContainer
-}
+    PageContainer,}
 }
 </script>
 
